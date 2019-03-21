@@ -5,7 +5,7 @@
 # . build/changes.sh
 # :)
 TodaysDate=$(date +"%m-%d-%Y")
-ChangelogFile=changes/$date/$romname-Changelog-$date.txt
+ChangelogFile=changes/$date/$ROMname-Changelog-$date.txt
 Changelogger=repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago > $ChangelogFile
 
 warmWelcome () {
@@ -35,31 +35,32 @@ changelogFolder ()
 
     if [ ! -d changes ]
     then echo " "
+	    echo " "
         echo "Creating Changelog folder..."
         sleep 1
         mkdir changes
         sleep 2
         echo " "
         echo "Done!"
-        sleep 1.3
+        sleep 1
         echo " "
 
         # Let the user know what's going on
         echo "Adding Read and Write permissions to the folder..."
-        sleep 1.6
-        chmod 777 -R Changelogs
+        sleep 1
+        chmod 777 -R changes
         echo "Done!"
         echo "Moving on..."
-        sleep 1.5
+        sleep 1
 
         # Now that all the boring setup stuff is done, let's let the user know.
         noMoreBoringStuff
 
     else echo "Found the Changelog folder!"
-        sleep 1.5
+        sleep 1
         echo " "
         echo "Moving on..."
-        sleep 1.5
+        sleep 1
         echo " "
         echo " "
 
@@ -98,12 +99,12 @@ gitChangelog ()
     echo " "
     echo "Time to set how far back you'd like the changelog to go."
     echo " "
-    sleep 1.5
+    sleep 1
     echo "How many days back would you like to go?"
     echo "(enter the word 'today' if you'd like to pull the changes from today only)"
     echo " "
     #    echo "** Friendly tip! **"
-    #    echo "It's recommended to repo sync prior to pulling any changelogs"
+    #    echo "It's recommended to repo sync prior to pulling any changes"
     #    echo " "
     read -p "Amount of days: " NumberOf
 
@@ -111,18 +112,18 @@ gitChangelog ()
     then echo " "
         echo "Creating directory for todays date..."
         sleep 2
-        mkdir Changelogs/$(date +"%m-%d-%Y")
+        mkdir changes/$(date +"%m-%d-%Y")
 
         echo " "
         echo "Entering the directory for $TodaysDate"
-        sleep 1.5
+        sleep 1
 
-        cd Changelogs/$(date +"%m-%d-%Y")
+        cd changes/$(date +"%m-%d-%Y")
 
         echo " "
         echo "Pulling the changelog from $NumberOf days ago"
 
-        repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago > ROM-Changelog-$(date +"%m-%d-%Y").txt
+        repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago > $ROMname-Changelog-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
         sleep 2
@@ -132,22 +133,22 @@ gitChangelog ()
 
         echo " "
         echo "Settings some permissions..."
-        sleep 1.5
+        sleep 1
 
-        chmod 777 -R Changelogs
+        chmod 777 -R changes
         echo "Done!"
         cd ..
-        #cd Changelogs &&
+        #cd changes &&
         # mkdir $Date
-        # cd Changelogs
+        # cd changes
         # cd $Date
         echo " "
         # echo "Done!"
-        sleep 2.4
+        sleep 2
 
         echo " "
-        echo "Go ahead and head on over to your Changelogs/$TodaysDate folder to find the changelog."
-        sleep 3
+        echo "Go ahead and head on over to your changes/$TodaysDate folder to find the changelog."
+        sleep 1
         echo " "
 
         echo "Exiting..."
@@ -157,41 +158,41 @@ elif [ $NumberOf = "today" ]
     then echo " "
         echo "Creating directory for todays date..."
         sleep 2
-        mkdir Changelogs/$(date +"%m-%d-%Y")
+        mkdir changes/$(date +"%m-%d-%Y")
 
         echo " "
         echo "Entering the directory for $TodaysDate"
-        sleep 1.5
+        sleep 1
 
-        cd Changelogs/$(date +"%m-%d-%Y")
+        cd changes/$(date +"%m-%d-%Y")
 
         echo " "
         echo "Pulling the changelog from 1 day ago"
 
-        repo forall -pc git log --reverse --no-merges --since=1.day.ago > ROM-Changelog-$(date +"%m-%d-%Y").txt
+        repo forall -pc git log --reverse --no-merges --since=1.day.ago > $ROMname-Changelog-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
-        sleep 2
+        sleep 1
 
         cd ..
         cd ..
 
         echo "Settings some permissions..."
-        sleep 1.5
+        sleep 1
 
-        chmod 777 -R Changelogs
+        chmod 777 -R changes
         cd ..
-        #cd Changelogs &&
+        #cd changes &&
         # mkdir $Date
-        # cd Changelogs
+        # cd changes
         # cd $Date
         echo " "
         echo "Done!"
-        sleep 1.5
+        sleep 1
 
         echo " "
-        echo "Go ahead and head on over to your Changelogs/$TodaysDate folder to find the changelog."
-        sleep 1.5
+        echo "Go ahead and head on over to your changes/$TodaysDate folder to find the changelog."
+        sleep 1
         echo " "
 
         echo "Exiting..."
@@ -199,6 +200,7 @@ elif [ $NumberOf = "today" ]
 
 }
 
+clear
 cd build
 
 warmWelcome
