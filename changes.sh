@@ -5,8 +5,21 @@
 # . build/changes.sh
 # :)
 TodaysDate=$(date +"%m-%d-%Y")
-ChangelogFile=changes/$date/$ROMname-Changelog-$date.txt
-Changelogger=repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago > $ChangelogFile
+changesFile=changes/$date/$ROMname-changes-$date.txt
+changesger=repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago > $changesFile
+
+while [ $# -gt 0 ]
+do
+    case $1 in
+        '--debug')
+            #TODO
+            ;;
+        *)
+            echo "unrecognised arg $1"; exit
+            ;;
+    esac
+    shift
+done
 
 warmWelcome () {
     echo "############################################################"
@@ -36,7 +49,7 @@ changelogFolder ()
     if [ ! -d changes ]
     then echo " "
 	    echo " "
-        echo "Creating Changelog folder..."
+        echo "Creating changes folder..."
         sleep 1
         mkdir changes
         sleep 2
@@ -56,11 +69,12 @@ changelogFolder ()
         # Now that all the boring setup stuff is done, let's let the user know.
         noMoreBoringStuff
 
-    else echo "Found the Changelog folder!"
-        sleep 1
+    else echo " "
+	    echo "Found the changes folder!"
+        sleep 2
         echo " "
         echo "Moving on..."
-        sleep 1
+        sleep 2
         echo " "
         echo " "
 
@@ -94,7 +108,7 @@ setROMName () {
 
 }
 
-gitChangelog ()
+gitchanges ()
 {
     echo " "
     echo "Time to set how far back you'd like the changelog to go."
@@ -123,7 +137,8 @@ gitChangelog ()
         echo " "
         echo "Pulling the changelog from $NumberOf days ago"
 
-        repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago > $ROMname-Changelog-$(date +"%m-%d-%Y").txt
+		echo $'$ROMname changelog\n' > $ROMname-changes-$(date +"%m-%d-%Y").txt
+        repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
         sleep 2
@@ -169,7 +184,7 @@ elif [ $NumberOf = "today" ]
         echo " "
         echo "Pulling the changelog from 1 day ago"
 
-        repo forall -pc git log --reverse --no-merges --since=1.day.ago > $ROMname-Changelog-$(date +"%m-%d-%Y").txt
+        repo forall -pc git log --reverse --no-merges --since=1.day.ago > $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
         sleep 1
@@ -205,11 +220,11 @@ cd build
 
 warmWelcome
 
-# Create the Changelog folder if we can't find it
+# Create the changes folder if we can't find it
 changelogFolder
 
 # Set the ROM name for the changelog output
 setROMName
 
 # Time to get to the good stuff
-gitChangelog
+gitchanges
