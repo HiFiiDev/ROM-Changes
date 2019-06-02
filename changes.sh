@@ -9,6 +9,14 @@ changesFile=changes/$date/$ROMname-changes-$date.txt
 changesger=repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago > $changesFile
 one=1
 
+sourceROMNameConfig () {
+
+if [ -f "changelog_config.dat" ] ; then
+source ~/home/$USER/changelog_config.dat
+    fi
+    
+    }
+
 while [ $# -gt 0 ]
 do
     case $1 in
@@ -105,19 +113,30 @@ changelogFolder ()
 # entered so of course the user doesnt have to enter
 # it every time
 setROMName () {
-ROM_Name=""
 
-if [ "$ROM_Name" = "" ]; then
-    echo "Enter ROM name: "
-    read path
-    ROM_Name=$path
+    if [ -z "$value" ]
+    then
+        read -p "Set ROM name: " ROMname
+        echo "Thanks, ROM name is: $ROMname"
+        echo " "
+        sleep 2
+        #    else
+        #        echo "$value"
+    fi
 
-    sed -i 's/ROM_Name=""/ROM_Name='$path'/g' $0
-    echo." "
-    echo "ROMs name is: $ROM_Name"
-fi
+    if [ ! -f "changelog_config.dat" ] ; then
+        value=$ROMname
 
+        # otherwise read the value from the file
+    else
+        value=`cat changelog_config.dat`
+    fi
 
+    # show it to the user
+    echo "ROM name: ${value}"
+
+    # and save it for next time
+    echo "${value}" > ~/home/$USER/changelog_config.dat
 
 }
 
@@ -155,8 +174,8 @@ gitchanges ()
         echo " "
         echo "Pulling the changelog from $NumberOf days ago"
 
-        echo $'$ROM_Name changelog\n' > $ROM_Name-changes-$(date +"%m-%d-%Y").txt
-        repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROM_Name-changes-$(date +"%m-%d-%Y").txt
+        echo $'$ROMname changelog\n' > $ROMname-changes-$(date +"%m-%d-%Y").txt
+        repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
         
@@ -204,7 +223,7 @@ gitchanges ()
         echo "Pulling the changelog from 1 day ago"
 
         # make the changelog
-        repo forall -pc git log --reverse --no-merges --since=1.day.ago > $ROM_Name-changes-$(date +"%m-%d-%Y").txt
+        repo forall -pc git log --reverse --no-merges --since=1.day.ago > $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
         sleep 1
@@ -235,6 +254,8 @@ gitchanges ()
 
 }
 
+
+sourceROMNameConfig
 
 # make it look cleaner, then cd into build folder
 clear
