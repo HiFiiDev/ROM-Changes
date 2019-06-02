@@ -50,7 +50,7 @@ warmWelcomeTest () {
     echo -n " "
     sleep .1
     for l in t o ; do
-          echo -n ${bold}$l
+        echo -n ${bold}$l
         sleep .1
     done
     echo -n " "
@@ -62,13 +62,13 @@ warmWelcomeTest () {
     echo -n " "
     sleep .1
     for l in C h a n g e l o g ; do
-          echo -n ${bold}$l
+        echo -n ${bold}$l
         sleep .1
     done
     echo -n " "
     sleep .1
     for l in C r e a t o r ; do
-          echo -n ${bold}$l
+        echo -n ${bold}$l
         sleep .1
     done
     sleep 2
@@ -82,20 +82,20 @@ warmWelcomeTest () {
 # entered so of course the user doesnt have to enter
 # it every time
 setROMName () {
-ROMNameLocation="$HOME/changelog_config.conf"
+    ROMNameLocation="$HOME/changelog_config.conf"
 
-if [ ! -f "$ROMNameLocation" ] ; then
-read -p "Please enter ROM name: " ROMname
+    if [ ! -f "$ROMNameLocation" ] ; then
+        read -p "Please enter ROM name: " ROMname
         echo "Thanks, ROM name is: $ROMname"
         name=$(cat "$ROMNameLocation")
         echo " "
 
         # otherwise read the value from the file and continue
     else
-    #  $ROMname="$name"
-      echo "$ROMname" >> "ROMNameLocation"
+        #  $ROMname="$name"
+        echo "$ROMname" >> "ROMNameLocation"
     fi
-    
+
     echo "Let's create a changelog for $name"
 }
 
@@ -165,7 +165,7 @@ gitchanges ()
         repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
-        
+
         sleep 2
 
         cd ..
