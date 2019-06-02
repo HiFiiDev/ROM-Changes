@@ -9,13 +9,7 @@ changesFile=changes/$date/$ROMname-changes-$date.txt
 changesger=repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago > $changesFile
 one=1
 
-sourceROMNameConfig () {
 
-if [ -f "changelog_config.dat" ] ; then
-source ~/home/$USER/changelog_config.dat
-    fi
-    
-    }
 
 while [ $# -gt 0 ]
 do
@@ -255,6 +249,17 @@ gitchanges ()
 }
 
 
+sourceROMNameConfig () {
+
+if [ -f "changelog_config.dat" ] ; then
+source ~/home/$USER/changelog_config.dat
+
+   else
+      setROMName
+    fi
+    
+    }
+    
 sourceROMNameConfig
 
 # make it look cleaner, then cd into build folder
