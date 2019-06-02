@@ -93,7 +93,6 @@ read -p "Please enter ROM name: " ROMname
 
         # otherwise read the value from the file and continue
     else
-        source $HOME/changelog_config.conf
         $ROMname="$name"
     fi
     
