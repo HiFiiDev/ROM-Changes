@@ -76,6 +76,38 @@ warmWelcomeTest () {
     sleep 2.5
 }
 
+# Basically what this does is gets the ROM name
+# that the user enters, and saves it to a hidden file
+# upon the first use, but then remembers what they
+# entered so of course the user doesnt have to enter
+# it every time
+setROMName () {
+
+
+if [ ! -f "changelog_config.conf" ] ; then
+        value=$ROMname
+
+
+read -p "Please enter ROM name: " ROMname
+        echo "Thanks, ROM name is: $ROMname"
+        echo " "
+echo "$value" >> $HOME/etc/changelog_config.conf
+echo "$ROMname" >> $HOME/etc/changelog_config.conf
+        sleep 2
+
+        # otherwise read the value from the file
+    else
+        value=`cat changelog_config.conf`
+    fi
+
+    # show it to the user
+    echo "ROM name: ${value}"
+
+
+
+    fi
+}
+
 changelogFolder ()
 {
     if [ ! -d changes ]
@@ -103,32 +135,6 @@ changelogFolder ()
     fi
 }
 
-# Basically what this does is gets the ROM name
-# that the user enters, and saves it to a hidden file
-# upon the first use, but then remembers what they
-# entered so of course the user doesnt have to enter
-# it every time
-setROMName () {
-
-if [ ! -f "changelog_config.conf" ] ; then
-        value=$ROMname
-
-read -p "Please enter ROM name: " ROMname
-        echo "Thanks, ROM name is: $ROMname"
-        echo " "
-        sleep 2
-
-        # otherwise read the value from the file
-    else
-        value=`cat changelog_config.conf`
-    fi
-
-    # show it to the user
-    echo "ROM name: ${value}"
-
-    # and save it for next time
-    echo "${value}" >> $HOME/etc/changelog_config.conf
-}
 
 gitchanges ()
 {
@@ -258,6 +264,7 @@ warmWelcomeTest
 
 # Set the ROM name for the changelog output
 setROMName
+
 
 # Create the changes folder if we can't find it
 changelogFolder
