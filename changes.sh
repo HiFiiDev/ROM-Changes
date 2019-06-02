@@ -128,8 +128,6 @@ read -p "Please enter ROM name: " ROMname
 
     # and save it for next time
     echo "${value}" >> $HOME/etc/changelog_config.conf
-
-    fi
 }
 
 gitchanges ()
