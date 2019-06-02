@@ -57,10 +57,9 @@ warmWelcomeTest () {
     sleep .1
     for l in H i f i i s ; do
         echo -n ${bold}$l
-        echo -n " "
         sleep .1
     done
-      echo -n ${bold}$l
+    echo -n ${bold}$l
     sleep .1
     for l in C h a n g e l o g ; do
           echo -n ${bold}$l
@@ -90,11 +89,11 @@ if [ ! -f "$ROMNameLocation" ] ; then
 read -p "Please enter ROM name: " ROMname
         echo "Thanks, ROM name is: $ROMname"
         echo " "
-        echo "$ROMname" > "ROMNameLocation"
 
         # otherwise read the value from the file and continue
     #else
     #    $ROMname="$name"
+      echo "$ROMname" >> "ROMNameLocation"
     fi
     
     echo "Let's create a changelog for $name"
@@ -249,7 +248,6 @@ clear
 # Figure out a way to see if user is already
 # in his/her build folder
 cd build
-
 
 # say hello
 warmWelcomeTest
