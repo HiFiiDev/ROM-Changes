@@ -172,7 +172,7 @@ gitchanges ()
         repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
-        
+
         sleep 2
 
         cd ..
