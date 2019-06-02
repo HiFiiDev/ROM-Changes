@@ -34,7 +34,6 @@ warmWelcome () {
     echo " "
 }
 
-
 warmWelcomeTest () {
 
     # thanks to TommyTomatoe for this neat little piece of
@@ -154,8 +153,22 @@ setROMName () {
 
 }
 
+spin () {
+  spinner="/|\\-/|\\-"
+  while :
+  do
+    for i in `seq 0 7`
+    do
+      echo -n "${spinner:$i:1}"
+      echo -en "\010"
+      sleep 1
+    done
+  done
+}
+
 gitchanges ()
 {
+
     echo " "
     echo "Time to set how far back you'd like the changelog to go."
     echo " "
@@ -187,10 +200,19 @@ gitchanges ()
         echo " "
         echo "Pulling the changelog from $NumberOf days ago"
 
+# Start the Spinner:
+spin &
+# Make a note of its Process ID (PID):
+SPIN_PID=$!
+
+trap "kill -9 $SPIN_PID" `seq 0 15`
+
         echo $'$ROMname changelog\n' > $ROMname-changes-$(date +"%m-%d-%Y").txt
         repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
+
+kill -9 $SPIN_PID
         sleep 2
 
         cd ..
