@@ -45,28 +45,28 @@ warmWelcomeTest () {
     echo
     for l in W e l c o m e ; do
         echo -n ${bold}$l
-        sleep .50
+        sleep .1
     done
     echo -n " "
-    sleep .50
+    sleep .1
     for l in t o ; do
           echo -n ${bold}$l
-        sleep .50
+        sleep .1
     done
     echo -n " "
-    sleep .50
+    sleep .1
     for l in H i f i i s ; do
           echo -n ${bold}$l
-        sleep .50
+        sleep .1
     done
       echo -n ${bold}$l
-    sleep .50
+    sleep .1
     for l in C h a n g e l o g ; do
           echo -n ${bold}$l
-        sleep .50
+        sleep .1
     done
     echo -n " "
-    sleep .50
+    sleep .1
     for l in C r e a t o r ; do
           echo -n ${bold}$l
         sleep .1
