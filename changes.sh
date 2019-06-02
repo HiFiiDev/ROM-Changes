@@ -125,7 +125,18 @@ changelogFolder ()
 }
 
 setROMName () {
-    if [ ! -f "changelog_config.dat" ] ; then
+
+    if [ -z "$value" ]
+    then
+        read -p "Set ROM name: " ROMname
+        echo "Thanks, ROM name is $ROMname"
+        echo " "
+        sleep 2
+    else
+        echo "$value"
+    fi
+    
+        if [ ! -f "changelog_config.dat" ] ; then
         value=$ROMname
 
         # otherwise read the value from the file
@@ -138,16 +149,6 @@ setROMName () {
 
     # and save it for next time
     echo "${value}" > changelog_config.dat
-
-    if [ -z "$value" ]
-    then
-        read -p "Set ROM name: " ROMname
-        echo "Thanks, ROM name is $ROMname"
-        echo " "
-        sleep 2
-    else
-        echo "$value"
-    fi
 
 }
 
