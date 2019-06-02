@@ -71,6 +71,7 @@ warmWelcomeTest () {
         sleep .1
     done
     echo -n " "
+    sleep 2.5
 }
 
 changelogFolder ()
@@ -104,30 +105,19 @@ changelogFolder ()
 # entered so of course the user doesnt have to enter
 # it every time
 setROMName () {
- read -p "Set ROM name: " ROMname
-    if [ -z "$value" ]
-    then
-        read -p "Set ROM name: " ROMname
-        echo "Thanks, ROM name is: $ROMname"
-        echo " "
-        sleep 2
-        #    else
-        #        echo "$value"
-    fi
+ROM_Name=""
 
-    if [ ! -f "changelog_config.dat" ] ; then
-        value=$ROMname
+if [ "$ROM_Name" = "" ]; then
+    echo "Enter ROM name: "
+    read path
+    ROM_Name=$path
 
-        # otherwise read the value from the file
-    else
-        value=`cat changelog_config.dat`
-    fi
+    sed -i 's/ROM_Name=""/ROM_Name='$path'/g' $0
+    echo." "
+    echo "ROMs name is: $ROM_Name"
+fi
 
-    # show it to the user
-    echo "ROM name: ${value}"
 
-    # and save it for next time
-    echo "${value}" > changelog_config.dat
 
 }
 
@@ -165,8 +155,8 @@ gitchanges ()
         echo " "
         echo "Pulling the changelog from $NumberOf days ago"
 
-        echo $'$ROMname changelog\n' > $ROMname-changes-$(date +"%m-%d-%Y").txt
-        repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROMname-changes-$(date +"%m-%d-%Y").txt
+        echo $'$ROM_Name changelog\n' > $ROM_Name-changes-$(date +"%m-%d-%Y").txt
+        repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROM_Name-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
         
@@ -214,7 +204,7 @@ gitchanges ()
         echo "Pulling the changelog from 1 day ago"
 
         # make the changelog
-        repo forall -pc git log --reverse --no-merges --since=1.day.ago > $ROMname-changes-$(date +"%m-%d-%Y").txt
+        repo forall -pc git log --reverse --no-merges --since=1.day.ago > $ROM_Name-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
         sleep 1
