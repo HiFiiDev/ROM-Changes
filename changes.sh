@@ -64,7 +64,9 @@ warmWelcomeTest () {
         echo -n $l
         sleep .1
     done
-        for l in C r e a t o r ! ! ; do
+    echo -n " "
+    sleep .2
+    for l in C r e a t o r ; do
         echo -n $l
         sleep .1
     done
@@ -82,14 +84,12 @@ noMoreBoringStuff ()
 
 changelogFolder ()
 {
-    # clear
-
     if [ ! -d changes ]
     then echo " "
         echo " "
         echo "Creating changes folder..."
         sleep 1
-        mkdir changes
+        mkdir -p changes
         sleep 2
         echo " "
         echo "Done!"
@@ -101,6 +101,7 @@ changelogFolder ()
         sleep 1
         chmod 777 -R changes
         echo "Done!"
+        echo " "
         echo "Moving on..."
         sleep 1
 
@@ -194,6 +195,8 @@ gitchanges ()
         cd ..
         cd ..
 
+### I will probably get rid of this part ###
+### or make it an option ###
         echo " "
         echo "Settings some permissions..."
         sleep 1
@@ -213,11 +216,12 @@ gitchanges ()
         echo " "
         sleep 2
 
-elif [[ $NumberOf = "today"  && 1 ]]
+# just in case they still enter '1' instead of 'today'
+elif [[ $NumberOf = "today" && $NumberOf = 1 ]]
     then echo " "
         echo "Creating directory for todays date..."
         sleep 2
-        mkdir changes/$(date +"%m-%d-%Y")
+        mkdir -p changes/$(date +"%m-%d-%Y")
 
         echo " "
         echo "Entering the directory for $TodaysDate"
@@ -228,6 +232,7 @@ elif [[ $NumberOf = "today"  && 1 ]]
         echo " "
         echo "Pulling the changelog from 1 day ago"
 
+# make the changelog
         repo forall -pc git log --reverse --no-merges --since=1.day.ago > $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
