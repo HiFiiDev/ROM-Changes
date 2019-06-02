@@ -7,6 +7,7 @@
 TodaysDate=$(date +"%m-%d-%Y")
 changesFile=changes/$date/$ROMname-changes-$date.txt
 changesger=repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago > $changesFile
+one=1
 
 while [ $# -gt 0 ]
 do
@@ -59,13 +60,13 @@ warmWelcomeTest () {
         sleep .1
     done
     echo -n " "
-    sleep .2
+    sleep .1
     for l in C h a n g e l o g ; do
         echo -n $l
         sleep .1
     done
     echo -n " "
-    sleep .2
+    sleep .1
     for l in C r e a t o r ; do
         echo -n $l
         sleep .1
@@ -124,7 +125,7 @@ changelogFolder ()
 # that the user enters, and saves it to a hidden file
 # upon the first use, but then remembers what they
 # entered so of course the user doesnt have to enter
-# it every time 
+# it every time
 setROMName () {
 
     if [ -z "$value" ]
@@ -133,8 +134,8 @@ setROMName () {
         echo "Thanks, ROM name is: $ROMname"
         echo " "
         sleep 2
-#    else
-#        echo "$value"
+        #    else
+        #        echo "$value"
     fi
 
     if [ ! -f "changelog_config.dat" ] ; then
@@ -152,6 +153,7 @@ setROMName () {
     echo "${value}" > changelog_config.dat
 
 }
+
 gitchanges ()
 {
     echo " "
@@ -159,7 +161,6 @@ gitchanges ()
     echo " "
     sleep 1
     echo "How many days back would you like to go?"
-    echo "(enter the word 'today' if you'd like to pull the changes from today only)"
     echo " "
 
     ### Not sure if i should incluce this part or not. ###
@@ -171,7 +172,7 @@ gitchanges ()
 
     read -p "Amount of days: " NumberOf
 
-    if [ $NumberOf = $NumberOf ]
+    if [ $NumberOf != $one ]
     then echo " "
         echo "Creating directory for todays date..."
         sleep 2
@@ -195,8 +196,8 @@ gitchanges ()
         cd ..
         cd ..
 
-### I will probably get rid of this part ###
-### or make it an option ###
+        ### I will probably get rid of this part ###
+        ### or make it an option ###
         echo " "
         echo "Settings some permissions..."
         sleep 1
@@ -215,9 +216,10 @@ gitchanges ()
         echo "Exiting..."
         echo " "
         sleep 2
+    fi
 
-# just in case they still enter '1' instead of 'today'
-elif [[ $NumberOf == "today" && $NumberOf == 1 ]]
+    # just in case they still enter '1' instead of 'today'
+    if [ $NumberOf = "$one" ]
     then echo " "
         echo "Creating directory for todays date..."
         sleep 2
@@ -232,7 +234,7 @@ elif [[ $NumberOf == "today" && $NumberOf == 1 ]]
         echo " "
         echo "Pulling the changelog from 1 day ago"
 
-# make the changelog
+        # make the changelog
         repo forall -pc git log --reverse --no-merges --since=1.day.ago > $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
