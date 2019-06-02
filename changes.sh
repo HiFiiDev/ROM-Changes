@@ -217,7 +217,7 @@ gitchanges ()
         sleep 2
 
 # just in case they still enter '1' instead of 'today'
-elif [[ $NumberOf = "today" && $NumberOf = 1 ]]
+elif [[ $NumberOf == "today" && $NumberOf == 1 ]]
     then echo " "
         echo "Creating directory for todays date..."
         sleep 2
