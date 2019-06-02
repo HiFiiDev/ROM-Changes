@@ -84,21 +84,23 @@ warmWelcomeTest () {
 # entered so of course the user doesnt have to enter
 # it every time
 setROMName () {
+ROMNameLocation="$HOME/changelog_config.conf"
+file="$ROMNameLocation" 
+name=$(cat "$file")
 
-if [ ! -f "changelog_config.conf" ] ; then
-        value=$ROMname
+# testing
+echo $name
 
-
+if [ ! -f "$ROMNameLocation" ] ; then
 read -p "Please enter ROM name: " ROMname
         echo "Thanks, ROM name is: $ROMname"
         echo " "
-echo "$ROMname" >> $HOME/changelog_config.conf
-        sleep 2
+echo "$ROMname" >> "ROMNameLocation"
 
         # otherwise read the value from the file
     else
         source $HOME/changelog_config.conf
-        value=`cat changelog_config.conf`
+        $ROMname="$name"
     fi
     
 }
