@@ -102,10 +102,6 @@ echo "$ROMname" >> $HOME/etc/changelog_config.conf
 
     # show it to the user
     echo "ROM name: ${value}"
-
-
-
-    fi
 }
 
 changelogFolder ()
