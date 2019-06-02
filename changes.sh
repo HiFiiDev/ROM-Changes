@@ -36,10 +36,10 @@ warmWelcome () {
 
 warmWelcomeTest () {
 
-# thanks to TommyTomatoe for this neat little piece of
-# code to animate text!
-# https://urlzs.com/eqdzr
-# ^^^ link to code I basically cut and pasted
+    # thanks to TommyTomatoe for this neat little piece of
+    # code to animate text!
+    # https://urlzs.com/eqdzr
+    # ^^^ link to code I basically cut and pasted
 
     echo
     for l in W e l c o m e ; do
@@ -54,7 +54,7 @@ warmWelcomeTest () {
     done
     echo -n " "
     sleep .2
-    for l in h i f i i s ; do
+    for l in H i f i i s ; do
         echo -n $l
         sleep .1
     done
@@ -64,12 +64,7 @@ warmWelcomeTest () {
         echo -n $l
         sleep .1
     done
-    sleep .1
-    echo ","
-    sleep .2
-    echo
-    sleep .1
-    for l in C r e a t o r ! ; do
+        for l in C r e a t o r ! ! ; do
         echo -n $l
         sleep .1
     done
@@ -124,19 +119,24 @@ changelogFolder ()
     fi
 }
 
+# Basically what this does is gets the ROM name
+# that the user enters, and saves it to a hidden file
+# upon the first use, but then remembers what they
+# entered so of course the user doesnt have to enter
+# it every time 
 setROMName () {
 
     if [ -z "$value" ]
     then
         read -p "Set ROM name: " ROMname
-        echo "Thanks, ROM name is $ROMname"
+        echo "Thanks, ROM name is: $ROMname"
         echo " "
         sleep 2
-    else
-        echo "$value"
+#    else
+#        echo "$value"
     fi
-    
-        if [ ! -f "changelog_config.dat" ] ; then
+
+    if [ ! -f "changelog_config.dat" ] ; then
         value=$ROMname
 
         # otherwise read the value from the file
@@ -151,7 +151,6 @@ setROMName () {
     echo "${value}" > changelog_config.dat
 
 }
-
 gitchanges ()
 {
     echo " "
@@ -161,21 +160,21 @@ gitchanges ()
     echo "How many days back would you like to go?"
     echo "(enter the word 'today' if you'd like to pull the changes from today only)"
     echo " "
-    
+
     ### Not sure if i should incluce this part or not. ###
     ### comment out for now ###
-    
+
     #    echo "** Friendly tip! **"
     #    echo "It's recommended to repo sync prior to pulling any changes"
     #    echo " "
-    
+
     read -p "Amount of days: " NumberOf
 
     if [ $NumberOf = $NumberOf ]
     then echo " "
         echo "Creating directory for todays date..."
         sleep 2
-        mkdir changes/$(date +"%m-%d-%Y")
+        mkdir -p changes/$(date +"%m-%d-%Y")
 
         echo " "
         echo "Entering the directory for $TodaysDate"
@@ -202,12 +201,7 @@ gitchanges ()
         chmod 777 -R changes
         echo "Done!"
         cd ..
-        #cd changes &&
-        # mkdir $Date
-        # cd changes
-        # cd $Date
         echo " "
-        # echo "Done!"
         sleep 2
 
         echo " "
@@ -219,7 +213,7 @@ gitchanges ()
         echo " "
         sleep 2
 
-elif [ $NumberOf = "today" ]
+elif [[ $NumberOf = "today"  && 1 ]]
     then echo " "
         echo "Creating directory for todays date..."
         sleep 2
