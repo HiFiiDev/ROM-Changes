@@ -130,7 +130,7 @@ setROMName () {
     echo "ROM name: ${value}"
 
     # and save it for next time
-    echo "${value}" > ~/home/$USER/changelog_config.dat
+    echo "${value}" > /root/home/changelog_config.dat
 
 }
 
@@ -252,10 +252,10 @@ gitchanges ()
 sourceROMNameConfig () {
 
 if [ -f "changelog_config.dat" ] ; then
-source ~/home/$USER/changelog_config.dat
+source /root/home/changelog_config.dat
 
    else
-      setROMName
+      
     fi
     
     }
