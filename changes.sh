@@ -118,19 +118,19 @@ setROMName () {
         #        echo "$value"
     fi
 
-    if [ ! -f "changelog_config.dat" ] ; then
+    if [ ! -f "changelog_config.conf" ] ; then
         value=$ROMname
 
         # otherwise read the value from the file
     else
-        value=`cat changelog_config.dat`
+        value=`cat changelog_config.conf`
     fi
 
     # show it to the user
     echo "ROM name: ${value}"
 
     # and save it for next time
-    echo "${value}" > /root/home/changelog_config.dat
+    echo "${value}" >> $HOME/etc/changelog_config.conf
 
 }
 
@@ -251,11 +251,11 @@ gitchanges ()
 
 sourceROMNameConfig () {
 
-if [ -f "changelog_config.dat" ] ; then
-source /root/home/changelog_config.dat
+if [ -f "changelog_config.conf" ] ; then
+source $HOME/etc/changelog_config.conf
 
    else
-      
+      echo " "
     fi
     
     }
