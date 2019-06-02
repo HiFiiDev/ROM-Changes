@@ -33,6 +33,91 @@ warmWelcome () {
     echo " "
 }
 
+
+warmWelcomeTest () {
+
+
+    echo
+    for l in W e l c o m e ; do
+        echo -n $l
+        sleep .1
+    done
+    echo -n " "
+    sleep .1
+    for l in t o ; do
+        echo -n $l
+        sleep .1
+    done
+    echo -n " "
+    sleep .2
+    for l in h i f i i s ; do
+        echo -n $l
+        sleep .1
+    done
+    echo -n " "
+    sleep .2
+    for l in C h a n g e l o g ; do
+        echo -n $l
+        sleep .1
+    done
+    sleep .1
+    echo ","
+    sleep .2
+    echo
+    sleep .1
+    for l in c r e a t o r ! ; do
+        echo -n $l
+        sleep .1
+    done
+    echo -n " "
+    sleep .2
+    for l in t o ; do
+        echo -n $l
+        sleep .1
+    done
+    echo -n " "
+    sleep .1
+    for l in y o u ; do
+        echo -n $l
+        sleep .1
+    done
+    echo -n " "
+    sleep .1
+    for l in b y ; do
+        echo -n $l
+        sleep .1
+    done
+    sleep .1
+    echo ":"
+    sleep .1
+    echo
+    for l in t o m m y t o m a t o e ; do
+        echo -n $l
+        sleep .1
+    done
+    echo
+    echo
+    for l in e n j o y ; do
+        echo -n $l
+        sleep .1
+    done
+    echo -n " "
+    sleep .1
+    for l in t h e ; do
+        echo -n $l
+        sleep .1
+    done
+    echo -n " "
+    sleep .1
+    for l in p o s s i b i l i t i e s ; do
+        echo -n $l
+        sleep .1
+    done
+    echo "."
+    echo
+    sleep .25
+}
+
 noMoreBoringStuff ()
 {
     echo " "
@@ -48,7 +133,7 @@ changelogFolder ()
 
     if [ ! -d changes ]
     then echo " "
-	    echo " "
+        echo " "
         echo "Creating changes folder..."
         sleep 1
         mkdir changes
@@ -70,7 +155,7 @@ changelogFolder ()
         noMoreBoringStuff
 
     else echo " "
-	    echo "Found the changes folder!"
+        echo "Found the changes folder!"
         sleep 2
         echo " "
         echo "Moving on..."
@@ -137,7 +222,7 @@ gitchanges ()
         echo " "
         echo "Pulling the changelog from $NumberOf days ago"
 
-		echo $'$ROMname changelog\n' > $ROMname-changes-$(date +"%m-%d-%Y").txt
+        echo $'$ROMname changelog\n' > $ROMname-changes-$(date +"%m-%d-%Y").txt
         repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
@@ -167,6 +252,7 @@ gitchanges ()
         echo " "
 
         echo "Exiting..."
+        echo " "
         sleep 2
 
 elif [ $NumberOf = "today" ]
@@ -215,10 +301,14 @@ elif [ $NumberOf = "today" ]
 
 }
 
+
+# make it look cleaner and then cd into build folder
 clear
 cd build
 
-warmWelcome
+
+# say hello
+warmWelcomeTest
 
 # Create the changes folder if we can't find it
 changelogFolder
