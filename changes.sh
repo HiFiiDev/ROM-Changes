@@ -97,6 +97,8 @@ changelogFolder ()
         echo "Done!"
         echo -n " "
         sleep 1
+        echo " "
+        echo " "
 
     fi
 }
@@ -110,12 +112,13 @@ setROMName () {
 
     if [ -z "$value" ]
     then
-        read -p "Set ROM name: " ROMname
+        read -p "Please enter ROM name: " ROMname
         echo "Thanks, ROM name is: $ROMname"
         echo " "
         sleep 2
+        echo "$ROMname" >> $HOME/etc/changelog_config.conf
         #    else
-        #        echo "$value"
+        #    echo "$value"
     fi
 
     if [ ! -f "changelog_config.conf" ] ; then
@@ -172,7 +175,7 @@ gitchanges ()
         repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
-
+        
         sleep 2
 
         cd ..
