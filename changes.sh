@@ -73,15 +73,6 @@ warmWelcomeTest () {
     echo -n " "
 }
 
-noMoreBoringStuff ()
-{
-    echo " "
-    echo "Good news! We'll never have to do this again. :)"
-    echo "(Unless you delete the folder...)"
-
-    clear
-}
-
 changelogFolder ()
 {
     if [ ! -d changes ]
@@ -101,21 +92,8 @@ changelogFolder ()
         sleep 1
         chmod 777 -R changes
         echo "Done!"
-        echo " "
-        echo "Moving on..."
+        echo -n " "
         sleep 1
-
-        # Now that all the boring setup stuff is done, let's let the user know.
-        noMoreBoringStuff
-
-    else echo " "
-        echo "Found the changes folder!"
-        sleep 2
-        echo " "
-        echo "Moving on..."
-        sleep 2
-        echo " "
-        echo " "
 
     fi
 }
@@ -126,7 +104,7 @@ changelogFolder ()
 # entered so of course the user doesnt have to enter
 # it every time
 setROMName () {
-
+ read -p "Set ROM name: " ROMname
     if [ -z "$value" ]
     then
         read -p "Set ROM name: " ROMname
@@ -151,19 +129,6 @@ setROMName () {
     # and save it for next time
     echo "${value}" > changelog_config.dat
 
-}
-
-spin () {
-  spinner="/|\\-/|\\-"
-  while :
-  do
-    for i in `seq 0 7`
-    do
-      echo -n "${spinner:$i:1}"
-      echo -en "\010"
-      sleep 1
-    done
-  done
 }
 
 gitchanges ()
@@ -200,19 +165,11 @@ gitchanges ()
         echo " "
         echo "Pulling the changelog from $NumberOf days ago"
 
-# Start the Spinner:
-spin &
-# Make a note of its Process ID (PID):
-SPIN_PID=$!
-
-trap "kill -9 $SPIN_PID" `seq 0 15`
-
         echo $'$ROMname changelog\n' > $ROMname-changes-$(date +"%m-%d-%Y").txt
         repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
-
-kill -9 $SPIN_PID
+        
         sleep 2
 
         cd ..
