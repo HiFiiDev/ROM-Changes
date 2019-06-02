@@ -8,8 +8,7 @@ TodaysDate=$(date +"%m-%d-%Y")
 changesFile=changes/$date/$ROMname-changes-$date.txt
 changesger=repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago > $changesFile
 one=1
-
-
+bold=$(tput bold)
 
 while [ $# -gt 0 ]
 do
@@ -43,36 +42,35 @@ warmWelcomeTest () {
     # https://urlzs.com/eqdzr
     # ^^^ link to code I basically cut and pasted
 
-    echo
+    echo($bold)
     for l in W e l c o m e ; do
         echo -n $l
-        sleep .1
+        sleep .65
     done
     echo -n " "
-    sleep .1
+    sleep .65
     for l in t o ; do
         echo -n $l
-        sleep .1
+        sleep .65
     done
     echo -n " "
-    sleep .2
+    sleep .65
     for l in H i f i i s ; do
         echo -n $l
-        sleep .1
+        sleep .65
     done
     echo -n " "
     sleep .1
     for l in C h a n g e l o g ; do
         echo -n $l
-        sleep .1
+        sleep .65
     done
     echo -n " "
-    sleep .1
+    sleep .65
     for l in C r e a t o r ; do
         echo -n $l
         sleep .1
     done
-    echo -n " "
     sleep 2.5
     echo " "
     echo " "
@@ -85,24 +83,21 @@ warmWelcomeTest () {
 # it every time
 setROMName () {
 ROMNameLocation="$HOME/changelog_config.conf"
-file="$ROMNameLocation" 
 name=$(cat "$file")
-
-# testing
-echo $name
 
 if [ ! -f "$ROMNameLocation" ] ; then
 read -p "Please enter ROM name: " ROMname
         echo "Thanks, ROM name is: $ROMname"
         echo " "
-echo "$ROMname" >> "ROMNameLocation"
+        echo "$ROMname" >> "ROMNameLocation"
 
-        # otherwise read the value from the file
+        # otherwise read the value from the file and continue
     else
         source $HOME/changelog_config.conf
         $ROMname="$name"
     fi
     
+    echo "Let's create a changelog for $name"
 }
 
 changelogFolder ()
@@ -110,7 +105,7 @@ changelogFolder ()
     if [ ! -d changes ]
     then echo " "
         echo " "
-        echo "Creating changes folder..."
+        echo "Creating changelog folder..."
         sleep 1
         mkdir -p changes
         sleep 2
