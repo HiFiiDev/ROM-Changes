@@ -110,19 +110,13 @@ changelogFolder ()
 # it every time
 setROMName () {
 
-    if [ -z "$value" ]
-    then
-        read -p "Please enter ROM name: " ROMname
+if [ ! -f "changelog_config.conf" ] ; then
+        value=$ROMname
+
+read -p "Please enter ROM name: " ROMname
         echo "Thanks, ROM name is: $ROMname"
         echo " "
         sleep 2
-        echo "$ROMname" >> $HOME/etc/changelog_config.conf
-        #    else
-        #    echo "$value"
-    fi
-
-    if [ ! -f "changelog_config.conf" ] ; then
-        value=$ROMname
 
         # otherwise read the value from the file
     else
@@ -135,6 +129,7 @@ setROMName () {
     # and save it for next time
     echo "${value}" >> $HOME/etc/changelog_config.conf
 
+    fi
 }
 
 gitchanges ()
@@ -263,11 +258,11 @@ cd build
 # say hello
 warmWelcomeTest
 
-# Create the changes folder if we can't find it
-changelogFolder
-
 # Set the ROM name for the changelog output
 setROMName
+
+# Create the changes folder if we can't find it
+changelogFolder
 
 # Time to get to the good stuff
 gitchanges
