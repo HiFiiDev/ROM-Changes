@@ -248,20 +248,6 @@ gitchanges ()
 
 }
 
-
-sourceROMNameConfig () {
-
-if [ -f "changelog_config.conf" ] ; then
-source $HOME/etc/changelog_config.conf
-
-   else
-      echo " "
-    fi
-    
-    }
-    
-sourceROMNameConfig
-
 # make it look cleaner, then cd into build folder
 clear
 
