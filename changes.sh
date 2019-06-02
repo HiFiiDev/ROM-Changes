@@ -56,7 +56,8 @@ warmWelcomeTest () {
     echo -n " "
     sleep .1
     for l in H i f i i s ; do
-          echo -n ${bold}$l
+        echo -n ${bold}$l
+        echo -n " "
         sleep .1
     done
       echo -n ${bold}$l
@@ -71,7 +72,7 @@ warmWelcomeTest () {
           echo -n ${bold}$l
         sleep .1
     done
-    sleep 2.5
+    sleep 2
     echo " "
     echo " "
 }
@@ -83,17 +84,17 @@ warmWelcomeTest () {
 # it every time
 setROMName () {
 ROMNameLocation="$HOME/changelog_config.conf"
-name=$(cat "$file")
+name=$(cat "$ROMNameLocation")
 
 if [ ! -f "$ROMNameLocation" ] ; then
 read -p "Please enter ROM name: " ROMname
         echo "Thanks, ROM name is: $ROMname"
         echo " "
-        echo "$ROMname" >> "ROMNameLocation"
+        echo "$ROMname" > "ROMNameLocation"
 
         # otherwise read the value from the file and continue
-    else
-        $ROMname="$name"
+    #else
+    #    $ROMname="$name"
     fi
     
     echo "Let's create a changelog for $name"
