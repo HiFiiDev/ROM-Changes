@@ -42,33 +42,33 @@ warmWelcomeTest () {
     # https://urlzs.com/eqdzr
     # ^^^ link to code I basically cut and pasted
 
-    echo($bold)
+    echo
     for l in W e l c o m e ; do
-        echo -n $l
-        sleep .65
+        echo -n ${bold}$l
+        sleep 0.7
     done
     echo -n " "
-    sleep .65
+    sleep 0.7
     for l in t o ; do
-        echo -n $l
-        sleep .65
+          echo -n ${bold}$l
+        sleep 0.7
     done
     echo -n " "
-    sleep .65
+    sleep 0.7
     for l in H i f i i s ; do
-        echo -n $l
-        sleep .65
+          echo -n ${bold}$l
+        sleep 0.7
     done
-    echo -n " "
-    sleep .1
+      echo -n ${bold}$l
+    sleep 0.7
     for l in C h a n g e l o g ; do
-        echo -n $l
-        sleep .65
+          echo -n ${bold}$l
+        sleep 0.7
     done
     echo -n " "
-    sleep .65
+    sleep 0.7
     for l in C r e a t o r ; do
-        echo -n $l
+          echo -n ${bold}$l
         sleep .1
     done
     sleep 2.5
