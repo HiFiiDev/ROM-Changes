@@ -74,6 +74,8 @@ warmWelcomeTest () {
     done
     echo -n " "
     sleep 2.5
+    echo " "
+    echo " "
 }
 
 # Basically what this does is gets the ROM name
@@ -91,8 +93,8 @@ if [ ! -f "changelog_config.conf" ] ; then
 read -p "Please enter ROM name: " ROMname
         echo "Thanks, ROM name is: $ROMname"
         echo " "
-echo "$value" >> $HOME/etc/changelog_config.conf
-echo "$ROMname" >> $HOME/etc/changelog_config.conf
+echo "$value" >> $HOME/changelog_config.conf
+echo "$ROMname" >> $HOME/changelog_config.conf
         sleep 2
 
         # otherwise read the value from the file
@@ -102,6 +104,7 @@ echo "$ROMname" >> $HOME/etc/changelog_config.conf
 
     # show it to the user
     echo "ROM name: ${value}"
+    
 }
 
 changelogFolder ()
