@@ -44,28 +44,28 @@ warmWelcomeTest () {
     echo
     for l in W e l c o m e ; do
         echo -n ${bold}$l
-        sleep .30
+        sleep .1
     done
     echo -n " "
-    sleep .30
+    sleep .1
     for l in t o ; do
           echo -n ${bold}$l
-        sleep .30
+        sleep .1
     done
     echo -n " "
-    sleep .30
+    sleep .1
     for l in H i f i i s ; do
-          echo -n ${bold}$l
-        sleep .30
+     echo -n " "
+        sleep .1
     done
       echo -n ${bold}$l
-    sleep .30
+    sleep .1
     for l in C h a n g e l o g ; do
           echo -n ${bold}$l
-        sleep .30
+        sleep .1
     done
     echo -n " "
-    sleep .30
+    sleep .1
     for l in C r e a t o r ; do
           echo -n ${bold}$l
         sleep .1
@@ -78,25 +78,24 @@ warmWelcomeTest () {
 # Basically what this does is gets the ROM name
 # that the user enters, and saves it to a hidden file
 # upon the first use, but then remembers what they
-# entered so of course the user doesnt have to enter
-# it every time
+# entered so the user doesnt have to enter it every time
 setROMName () {
 ROMNameLocation="$HOME/changelog_config.conf"
-name=$(cat "$file")
+name=$(cat "$ROMNameLocation")
 
 if [ ! -f "$ROMNameLocation" ] ; then
-source $HOME/changelog_config.conf
-
-    else
        read -p "Please enter ROM name: " ROMname
         echo "Thanks, ROM name is: $ROMname"
         echo " "
-        echo "$ROMname" >> "ROMNameLocation"
+        echo "$ROMname" > "ROMNameLocation"
+    else
 
+source $HOME/changelog_config.conf
         $ROMname="$name"
     fi
     
     echo "Let's create a changelog for $name"
+    echo " "
 }
 
 changelogFolder ()
