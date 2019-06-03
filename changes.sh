@@ -100,30 +100,6 @@ warmWelcomeTest () {
     echo " "
 }
 
-s="\033[s"
-u="\033[u"
-
-# Position of column
-# As per my command prompt, i want 15th column( so 14C)
-pos="\033[1000D\033[14C"
-while [ : ]
-do
-    eval echo -ne '$s$pos\|$u'
-    sleep 0.1
-    eval echo -ne '$s$pos/$u'
-    sleep 0.1
-    eval echo -ne '$s$pos一$u'
-    sleep 0.1
-    eval echo -ne '$s$pos\\\\$u'
-    sleep 0.1
-    eval echo -ne '$s$pos\|$u'
-    sleep 0.1
-    eval echo -ne '$s$pos\$$u'
-    sleep 0.1
-done
-
-[root@hello ~]|
-
 # Basically what this does is gets the ROM name
 # that the user enters, and saves it to a hidden file
 # upon the first use, but then remembers what they
