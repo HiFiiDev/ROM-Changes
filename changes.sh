@@ -6,7 +6,6 @@
 # :)
 TodaysDate=$(date +"%m-%d-%Y")
 changesFile=changes/$date/$ROMname-changes-$date.txt
-changesger=repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago > $changesFile
 one=1
 bold=$(tput bold)
 
@@ -17,7 +16,7 @@ do
             #TODO
             ;;
         *)
-            echo "unrecognised arg $1"; exit
+            echo "unrecognised arg $1"
             ;;
     esac
     shift
@@ -27,7 +26,7 @@ warmWelcome () {
     echo "############################################################"
     echo "#                                                          #"
     echo "#                                                          #"
-    echo "#                   Changelog creater                      #"
+    echo "#                    Changelog creater                     #"
     echo "#                                                          #"
     echo "#                                                          #"
     echo "############################################################"
@@ -45,33 +44,33 @@ warmWelcomeTest () {
     echo
     for l in W e l c o m e ; do
         echo -n ${bold}$l
-        sleep .1
+        sleep .30
     done
     echo -n " "
-    sleep .1
+    sleep .30
     for l in t o ; do
-        echo -n ${bold}$l
-        sleep .1
+          echo -n ${bold}$l
+        sleep .30
     done
     echo -n " "
-    sleep .1
+    sleep .30
     for l in H i f i i s ; do
-        echo -n ${bold}$l
-        sleep .1
+          echo -n ${bold}$l
+        sleep .30
     done
-    echo -n " "
-    sleep .1
+      echo -n ${bold}$l
+    sleep .30
     for l in C h a n g e l o g ; do
-        echo -n ${bold}$l
-        sleep .1
+          echo -n ${bold}$l
+        sleep .30
     done
     echo -n " "
-    sleep .1
+    sleep .30
     for l in C r e a t o r ; do
-        echo -n ${bold}$l
+          echo -n ${bold}$l
         sleep .1
     done
-    sleep 2
+    sleep 2.5
     echo " "
     echo " "
 }
@@ -82,20 +81,21 @@ warmWelcomeTest () {
 # entered so of course the user doesnt have to enter
 # it every time
 setROMName () {
-    ROMNameLocation="$HOME/changelog_config.conf"
+ROMNameLocation="$HOME/changelog_config.conf"
+name=$(cat "$file")
 
-    if [ ! -f "$ROMNameLocation" ] ; then
-        read -p "Please enter ROM name: " ROMname
-        echo "Thanks, ROM name is: $ROMname"
-        name=$(cat "$ROMNameLocation")
-        echo " "
+if [ ! -f "$ROMNameLocation" ] ; then
+source $HOME/changelog_config.conf
 
-        # otherwise read the value from the file and continue
     else
-        #  $ROMname="$name"
+       read -p "Please enter ROM name: " ROMname
+        echo "Thanks, ROM name is: $ROMname"
+        echo " "
         echo "$ROMname" >> "ROMNameLocation"
-    fi
 
+        $ROMname="$name"
+    fi
+    
     echo "Let's create a changelog for $name"
 }
 
@@ -104,7 +104,7 @@ changelogFolder ()
     if [ ! -d changes ]
     then echo " "
         echo " "
-        echo "Creating changelog folder..."
+        echo "Creating a changelog folder..."
         sleep 1
         mkdir -p changes
         sleep 2
@@ -117,7 +117,7 @@ changelogFolder ()
         echo "Adding Read and Write permissions to the folder..."
         sleep 1
         chmod 777 -R changes
-        echo "Done!"
+#        echo "Done!"
         echo -n " "
         sleep 1
         echo " "
@@ -165,7 +165,7 @@ gitchanges ()
         repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
-
+        
         sleep 2
 
         cd ..
@@ -248,6 +248,7 @@ clear
 # Figure out a way to see if user is already
 # in his/her build folder
 cd build
+
 
 # say hello
 warmWelcomeTest
