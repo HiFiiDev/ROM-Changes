@@ -22,15 +22,17 @@ function echo() {
 }
 
 function asciiArt () {
-    echo "############################################################"
-    echo "#                                                          #"
-    echo "#                                                          #"
-                                echo "█▀▄─▄▀▀▄─█▄─▄█"
-                                echo "██▀─█──█─█─▀─█"
-                                echo "▀─▀──▀▀──▀───▀"
-echo "▄▀▀▄─█─█─▄▀▄─█▄─█─▄▀▀──█▀▀─▄▀▀"
-echo "█──▄─█▀█─█▀█─█─▀█─█─▀█─█▀▀──▀▄"
-echo "─▀▀──▀─▀─▀─▀─▀──▀──▀▀──▀▀▀─▀▀─"
+echo " ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
+echo " ░░░░░░░░░░░░░░████▄░░▄███▄░░██▄░▄██░░░░░░░░░░░░░░░░░░░░░░░░░"
+echo " ░░░░░░░░░░░░░░██░██░██▀░▀██░██▀█▀██░░░░░░░░░░░░░░░░░░░░░░░░░"
+echo " ░░░░░░░░░░░░░░████▀░██▄░▄██░██░░░██░░░░░░░░░░░░░░░░░░░░░░░░░"
+echo " ░░░░░░░░░░░░░░██░██░░▀███▀░░██░░░██░░░░░░░░░░░░░░░░░░░░░░░░░"
+echo " ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
+echo " ░░░░░░░▄███▄░██░██░░▄███▄░░██▄░██░░▄███▄░████▄███▄░░░░░░░░░░"
+echo " ░░░░░░██▀░▀▀░██▄██░██▀░▀██░███▄██░██▀░▀▀░██▄░▀█▄▀▀░░░░░░░░░░"
+echo " ░░░░░░██▄░▄▄░██▀██░███████░██▀███░██▄▀██░██▀░▄▄▀█▄░░░░░░░░░░"
+echo " ░░░░░░░▀███▀░██░██░██░░░██░██░░██░░▀███▀░████▀███▀░░░░░░░░░░"
+echo " ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
 
 }
 
@@ -46,18 +48,6 @@ do
     esac
     shift
 done
-
-warmWelcome () {
-    echo "############################################################"
-    echo "#                                                          #"
-    echo "#                                                          #"
-    echo "#                    Changelog creater                     #"
-    echo "#                                                          #"
-    echo "#                                                          #"
-    echo "############################################################"
-    echo " "
-    echo " "
-}
 
 warmWelcomeTest () {
 
@@ -105,14 +95,13 @@ warmWelcomeTest () {
 # upon the first use, but then remembers what they
 # entered so the user doesnt have to enter it every time
 setROMName () {
-ROMNameLocation="$HOME/changelog_config.conf"
-name=$(cat "$ROMNameLocation")
+ROMNameLocation="$PWD/changelog_config.conf"
 
 if [ ! -f "$ROMNameLocation" ] ; then
        read -p "Please enter ROM name: " ROMname
+        echo "$ROMname" >> "ROMNameLocation"
         echo "Thanks, ROM name is: $ROMname"
         echo " "
-        echo "$ROMname" >> "ROMNameLocation"
         
 # source $HOME/changelog_config.conf
     fi
