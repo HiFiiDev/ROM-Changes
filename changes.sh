@@ -91,7 +91,6 @@ if [ ! -f "$ROMNameLocation" ] ; then
     else
 
 source $HOME/changelog_config.conf
-        $ROMname="$name"
     fi
     
     echo "Let's create a changelog for $name"
