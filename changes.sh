@@ -80,7 +80,7 @@ warmWelcomeTest () {
     echo -n " "
     sleep .1
     for l in H i f i i s ; do
-     echo -n " "
+          echo -n ${bold}$l
         sleep .1
     done
       echo -n ${bold}$l
@@ -113,8 +113,7 @@ if [ ! -f "$ROMNameLocation" ] ; then
         echo "Thanks, ROM name is: $ROMname"
         echo " "
         echo "$ROMname" >> "ROMNameLocation"
-    else
-
+        
 # source $HOME/changelog_config.conf
     fi
     
