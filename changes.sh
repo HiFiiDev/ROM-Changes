@@ -87,13 +87,13 @@ if [ ! -f "$ROMNameLocation" ] ; then
        read -p "Please enter ROM name: " ROMname
         echo "Thanks, ROM name is: $ROMname"
         echo " "
-        echo "$ROMname" > "ROMNameLocation"
+        echo "$ROMname" >> "ROMNameLocation"
     else
 
-source $HOME/changelog_config.conf
+# source $HOME/changelog_config.conf
     fi
     
-    echo "Let's create a changelog for $name"
+    echo "Let's create a changelog for $ROMname"
     echo " "
 }
 
