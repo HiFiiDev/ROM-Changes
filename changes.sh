@@ -49,25 +49,25 @@ warmWelcomeTest () {
     echo -n " "
     sleep .1
     for l in t o ; do
-          echo -n ${bold}$l
+        echo -n ${bold}$l
         sleep .1
     done
     echo -n " "
     sleep .1
     for l in H i f i i s ; do
-     echo -n " "
+        echo -n " "
         sleep .1
     done
-      echo -n ${bold}$l
+    echo -n ${bold}$l
     sleep .1
     for l in C h a n g e l o g ; do
-          echo -n ${bold}$l
+        echo -n ${bold}$l
         sleep .1
     done
     echo -n " "
     sleep .1
     for l in C r e a t o r ; do
-          echo -n ${bold}$l
+        echo -n ${bold}$l
         sleep .1
     done
     sleep 2.5
@@ -80,19 +80,19 @@ warmWelcomeTest () {
 # upon the first use, but then remembers what they
 # entered so the user doesnt have to enter it every time
 setROMName () {
-ROMNameLocation="$HOME/changelog_config.conf"
-name=$(cat "$ROMNameLocation")
+    ROMNameLocation="$HOME/changelog_config.conf"
+    name=$(cat "$ROMNameLocation")
 
-if [ ! -f "$ROMNameLocation" ] ; then
-       read -p "Please enter ROM name: " ROMname
+    if [ ! -f "$ROMNameLocation" ] ; then
+        read -p "Please enter ROM name: " ROMname
         echo "Thanks, ROM name is: $ROMname"
         echo " "
         echo "$ROMname" >> "ROMNameLocation"
     else
 
-# source $HOME/changelog_config.conf
+        # source $HOME/changelog_config.conf
     fi
-    
+
     echo "Let's create a changelog for $ROMname"
     echo " "
 }
@@ -115,7 +115,7 @@ changelogFolder ()
         echo "Adding Read and Write permissions to the folder..."
         sleep 1
         chmod 777 -R changes
-#        echo "Done!"
+        #        echo "Done!"
         echo -n " "
         sleep 1
         echo " "
@@ -163,7 +163,7 @@ gitchanges ()
         repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
-        
+
         sleep 2
 
         cd ..
