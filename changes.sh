@@ -8,6 +8,31 @@ TodaysDate=$(date +"%m-%d-%Y")
 changesFile=changes/$date/$ROMname-changes-$date.txt
 one=1
 bold=$(tput bold)
+# Colors for script
+BOLD="\033[1m"
+GRN="\033[01;32m"
+RED="\033[01;31m"
+RST="\033[0m"
+YLW="\033[01;33m"
+
+
+# Alias for echo to handle escape codes like colors
+function echo() {
+    command echo -e "$@"
+}
+
+function asciiArt () {
+    echo "############################################################"
+    echo "#                                                          #"
+    echo "#                                                          #"
+                                echo "█▀▄─▄▀▀▄─█▄─▄█"
+                                echo "██▀─█──█─█─▀─█"
+                                echo "▀─▀──▀▀──▀───▀"
+echo "▄▀▀▄─█─█─▄▀▄─█▄─█─▄▀▀──█▀▀─▄▀▀"
+echo "█──▄─█▀█─█▀█─█─▀█─█─▀█─█▀▀──▀▄"
+echo "─▀▀──▀─▀─▀─▀─▀──▀──▀▀──▀▀▀─▀▀─"
+
+}
 
 while [ $# -gt 0 ]
 do
@@ -49,25 +74,25 @@ warmWelcomeTest () {
     echo -n " "
     sleep .1
     for l in t o ; do
-        echo -n ${bold}$l
+          echo -n ${bold}$l
         sleep .1
     done
     echo -n " "
     sleep .1
     for l in H i f i i s ; do
-        echo -n " "
+     echo -n " "
         sleep .1
     done
-    echo -n ${bold}$l
+      echo -n ${bold}$l
     sleep .1
     for l in C h a n g e l o g ; do
-        echo -n ${bold}$l
+          echo -n ${bold}$l
         sleep .1
     done
     echo -n " "
     sleep .1
     for l in C r e a t o r ; do
-        echo -n ${bold}$l
+          echo -n ${bold}$l
         sleep .1
     done
     sleep 2.5
@@ -75,24 +100,48 @@ warmWelcomeTest () {
     echo " "
 }
 
+s="\033[s"
+u="\033[u"
+
+# Position of column
+# As per my command prompt, i want 15th column( so 14C)
+pos="\033[1000D\033[14C"
+while [ : ]
+do
+    eval echo -ne '$s$pos\|$u'
+    sleep 0.1
+    eval echo -ne '$s$pos/$u'
+    sleep 0.1
+    eval echo -ne '$s$pos一$u'
+    sleep 0.1
+    eval echo -ne '$s$pos\\\\$u'
+    sleep 0.1
+    eval echo -ne '$s$pos\|$u'
+    sleep 0.1
+    eval echo -ne '$s$pos\$$u'
+    sleep 0.1
+done
+
+[root@hello ~]|
+
 # Basically what this does is gets the ROM name
 # that the user enters, and saves it to a hidden file
 # upon the first use, but then remembers what they
 # entered so the user doesnt have to enter it every time
 setROMName () {
-    ROMNameLocation="$HOME/changelog_config.conf"
-    name=$(cat "$ROMNameLocation")
+ROMNameLocation="$HOME/changelog_config.conf"
+name=$(cat "$ROMNameLocation")
 
-    if [ ! -f "$ROMNameLocation" ] ; then
-        read -p "Please enter ROM name: " ROMname
+if [ ! -f "$ROMNameLocation" ] ; then
+       read -p "Please enter ROM name: " ROMname
         echo "Thanks, ROM name is: $ROMname"
         echo " "
         echo "$ROMname" >> "ROMNameLocation"
     else
 
-        # source $HOME/changelog_config.conf
+# source $HOME/changelog_config.conf
     fi
-
+    
     echo "Let's create a changelog for $ROMname"
     echo " "
 }
@@ -115,7 +164,7 @@ changelogFolder ()
         echo "Adding Read and Write permissions to the folder..."
         sleep 1
         chmod 777 -R changes
-        #        echo "Done!"
+#        echo "Done!"
         echo -n " "
         sleep 1
         echo " "
@@ -163,7 +212,7 @@ gitchanges ()
         repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
-
+        
         sleep 2
 
         cd ..
@@ -238,7 +287,7 @@ gitchanges ()
     fi
 
 }
-
+todaysDate=$(date +"%B %d`DaySuffix`, %Y")
 # make it look cleaner, then cd into build folder
 clear
 
@@ -249,7 +298,9 @@ cd build
 
 
 # say hello
-warmWelcomeTest
+#warmWelcomeTest
+
+asciiArt
 
 # Set the ROM name for the changelog output
 setROMName
