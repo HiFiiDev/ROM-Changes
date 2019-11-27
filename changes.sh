@@ -6,35 +6,7 @@
 # :)
 TodaysDate=$(date +"%m-%d-%Y")
 changesFile=changes/$date/$ROMname-changes-$date.txt
-one=1
-bold=$(tput bold)
-# Colors for script
-BOLD="\033[1m"
-GRN="\033[01;32m"
-RED="\033[01;31m"
-RST="\033[0m"
-YLW="\033[01;33m"
-
-
-# Alias for echo to handle escape codes like colors
-function echo() {
-    command echo -e "$@"
-}
-
-function asciiArt () {
-echo " ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
-echo " ░░░░░░░░░░░░░░████▄░░▄███▄░░██▄░▄██░░░░░░░░░░░░░░░░░░░░░░░░░"
-echo " ░░░░░░░░░░░░░░██░██░██▀░▀██░██▀█▀██░░░░░░░░░░░░░░░░░░░░░░░░░"
-echo " ░░░░░░░░░░░░░░████▀░██▄░▄██░██░░░██░░░░░░░░░░░░░░░░░░░░░░░░░"
-echo " ░░░░░░░░░░░░░░██░██░░▀███▀░░██░░░██░░░░░░░░░░░░░░░░░░░░░░░░░"
-echo " ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
-echo " ░░░░░░░▄███▄░██░██░░▄███▄░░██▄░██░░▄███▄░████▄███▄░░░░░░░░░░"
-echo " ░░░░░░██▀░▀▀░██▄██░██▀░▀██░███▄██░██▀░▀▀░██▄░▀█▄▀▀░░░░░░░░░░"
-echo " ░░░░░░██▄░▄▄░██▀██░███████░██▀███░██▄▀██░██▀░▄▄▀█▄░░░░░░░░░░"
-echo " ░░░░░░░▀███▀░██░██░██░░░██░██░░██░░▀███▀░████▀███▀░░░░░░░░░░"
-echo " ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
-
-}
+changesger=repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago > $changesFile
 
 while [ $# -gt 0 ]
 do
@@ -43,81 +15,74 @@ do
             #TODO
             ;;
         *)
-            echo "unrecognised arg $1"
+            echo "unrecognised arg $1"; exit
             ;;
     esac
     shift
 done
 
+warmWelcome () {
+    echo "############################################################"
+    echo "#                                                          #"
+    echo "#                                                          #"
+    echo "#                   Changelog creater                      #"
+    echo "#                                                          #"
+    echo "#                                                          #"
+    echo "############################################################"
+    echo " "
+    echo " "
+}
+
+
 warmWelcomeTest () {
 
-    # thanks to TommyTomatoe for this neat little piece of
-    # code to animate text!
-    # https://urlzs.com/eqdzr
-    # ^^^ link to code I basically cut and pasted
 
     echo
     for l in W e l c o m e ; do
-        echo -n ${bold}$l
+        echo -n $l
         sleep .1
     done
     echo -n " "
     sleep .1
     for l in t o ; do
-          echo -n ${bold}$l
+        echo -n $l
         sleep .1
     done
     echo -n " "
-    sleep .1
-    for l in H i f i i s ; do
-          echo -n ${bold}$l
+    sleep .2
+    for l in h i f i i s ; do
+        echo -n $l
         sleep .1
     done
-      echo -n ${bold}$l
-    sleep .1
+    echo -n " "
+    sleep .2
     for l in C h a n g e l o g ; do
-          echo -n ${bold}$l
+        echo -n $l
         sleep .1
     done
-    echo -n " "
-    sleep .1
-    for l in C r e a t o r ; do
-          echo -n ${bold}$l
-        sleep .1
-    done
-    sleep 2.5
-    echo " "
-    echo " "
+    echo
+    sleep .25
 }
 
-# Basically what this does is gets the ROM name
-# that the user enters, and saves it to a hidden file
-# upon the first use, but then remembers what they
-# entered so the user doesnt have to enter it every time
-setROMName () {
-ROMNameLocation="$PWD/changelog_config.conf"
-
-if [ ! -f "$ROMNameLocation" ] ; then
-       read -p "Please enter ROM name: " ROMname
-        echo "$ROMname" >> "ROMNameLocation"
-        echo "Thanks, ROM name is: $ROMname"
-        echo " "
-        
-# source $HOME/changelog_config.conf
-    fi
-    
-    echo "Let's create a changelog for $ROMname"
+noMoreBoringStuff ()
+{
     echo " "
+    echo "Good news! We'll never have to do this again. :)"
+    echo "(Unless you delete the folder...)"
+
+    clear
 }
 
 changelogFolder ()
 {
+    # clear
+
     if [ ! -d changes ]
     then echo " "
         echo " "
-        echo "Creating a changelog folder..."
+        echo "Creating changes folder..."
         sleep 1
-        mkdir -p changes
+        mkdir changes
         sleep 2
         echo " "
         echo "Done!"
@@ -128,40 +93,71 @@ changelogFolder ()
         echo "Adding Read and Write permissions to the folder..."
         sleep 1
         chmod 777 -R changes
-#        echo "Done!"
-        echo -n " "
+        echo "Done!"
+        echo "Moving on..."
         sleep 1
+
+        # Now that all the boring setup stuff is done, let's let the user know.
+        noMoreBoringStuff
+
+    else echo " "
+        echo "Found the changes folder!"
+        sleep 2
+        echo " "
+        echo "Moving on..."
+        sleep 2
         echo " "
         echo " "
 
     fi
 }
 
+setROMName () {
+    if [ ! -f "changelog_config.dat" ] ; then
+        value=$ROMname
+
+        # otherwise read the value from the file
+    else
+        value=`cat changelog_config.dat`
+    fi
+
+    # show it to the user
+    echo "ROM name: ${value}"
+
+    # and save it for next time
+    echo "${value}" > changelog_config.dat
+
+    if [ -z "$value" ]
+    then
+        read -p "Set ROM name: " ROMname
+        echo "Thanks, ROM name is $ROMname"
+        echo " "
+        sleep 2
+    else
+        echo "$value"
+    fi
+
+}
 
 gitchanges ()
 {
-
     echo " "
     echo "Time to set how far back you'd like the changelog to go."
     echo " "
     sleep 1
     echo "How many days back would you like to go?"
+    echo "(enter the word 'today' if you'd like to pull the changes from today only)"
     echo " "
-
-    ### Not sure if i should incluce this part or not. ###
-    ### comment out for now ###
-
     #    echo "** Friendly tip! **"
     #    echo "It's recommended to repo sync prior to pulling any changes"
     #    echo " "
-
     read -p "Amount of days: " NumberOf
 
-    if [ $NumberOf != $one ]
+    if [ $NumberOf = $NumberOf ]
     then echo " "
         echo "Creating directory for todays date..."
         sleep 2
-        mkdir -p changes/$(date +"%m-%d-%Y")
+        mkdir changes/$(date +"%m-%d-%Y")
 
         echo " "
         echo "Entering the directory for $TodaysDate"
@@ -176,14 +172,11 @@ gitchanges ()
         repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
-        
         sleep 2
 
         cd ..
         cd ..
 
-        ### I will probably get rid of this part ###
-        ### or make it an option ###
         echo " "
         echo "Settings some permissions..."
         sleep 1
@@ -191,7 +184,12 @@ gitchanges ()
         chmod 777 -R changes
         echo "Done!"
         cd ..
+        #cd changes &&
+        # mkdir $Date
+        # cd changes
+        # cd $Date
         echo " "
+        # echo "Done!"
         sleep 2
 
         echo " "
@@ -202,14 +200,12 @@ gitchanges ()
         echo "Exiting..."
         echo " "
         sleep 2
-    fi
 
-    # just in case they still enter '1' instead of 'today'
-    if [ $NumberOf = "$one" ]
+elif [ $NumberOf = "today" ]
     then echo " "
         echo "Creating directory for todays date..."
         sleep 2
-        mkdir -p changes/$(date +"%m-%d-%Y")
+        mkdir changes/$(date +"%m-%d-%Y")
 
         echo " "
         echo "Entering the directory for $TodaysDate"
@@ -220,7 +216,6 @@ gitchanges ()
         echo " "
         echo "Pulling the changelog from 1 day ago"
 
-        # make the changelog
         repo forall -pc git log --reverse --no-merges --since=1.day.ago > $ROMname-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
@@ -251,27 +246,21 @@ gitchanges ()
     fi
 
 }
-todaysDate=$(date +"%B %d`DaySuffix`, %Y")
-# make it look cleaner, then cd into build folder
-clear
 
-### TO DO ###
-# Figure out a way to see if user is already
-# in his/her build folder
+
+# make it look cleaner and then cd into build folder
+clear
 cd build
 
 
 # say hello
-#warmWelcomeTest
-
-asciiArt
-
-# Set the ROM name for the changelog output
-setROMName
-
+warmWelcomeTest
 
 # Create the changes folder if we can't find it
 changelogFolder
+
+# Set the ROM name for the changelog output
+setROMName
 
 # Time to get to the good stuff
 gitchanges
