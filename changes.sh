@@ -5,8 +5,9 @@
 # . build/changes.sh
 # :)
 TodaysDate=$(date +"%m-%d-%Y")
-changesFile=changes/$date/$ROMname-changes-$date.txt
+changesFile=changes/$date/$ROM_name-changes-$date.txt
 changesger=repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago > $changesFile
+
 
 while [ $# -gt 0 ]
 do
@@ -112,31 +113,24 @@ changelogFolder ()
     fi
 }
 
-setROMName () {
-    if [ ! -f "changelog_config.dat" ] ; then
-        value=$ROMname
-
-        # otherwise read the value from the file
-    else
-        value=`cat changelog_config.dat`
+setROM_name () {
+    if [ ! -z $ROM_name ] ; then
+        value=$ROM_name
     fi
 
     # show it to the user
-    echo "ROM name: ${value}"
-
-    # and save it for next time
-    echo "${value}" > changelog_config.dat
+    echo "\nROM name: ${value}"
 
     if [ -z "$value" ]
     then
-        read -p "Set ROM name: " ROMname
-        echo "Thanks, ROM name is $ROMname"
+        read -p "Set ROM name: " ROM_name
+        echo "Thanks, ROM name is $ROM_name"
+        sed -i "10 i\ROM_name=$ROM_name" changes.sh
         echo " "
         sleep 2
     else
         echo "$value"
     fi
-
 }
 
 gitchanges ()
@@ -168,8 +162,8 @@ gitchanges ()
         echo " "
         echo "Pulling the changelog from $NumberOf days ago"
 
-        echo $'$ROMname changelog\n' > $ROMname-changes-$(date +"%m-%d-%Y").txt
-        repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROMname-changes-$(date +"%m-%d-%Y").txt
+        echo $'$ROM_name changelog\n' > $ROM_name-changes-$(date +"%m-%d-%Y").txt
+        repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago >> $ROM_name-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
         sleep 2
@@ -216,7 +210,7 @@ elif [ $NumberOf = "today" ]
         echo " "
         echo "Pulling the changelog from 1 day ago"
 
-        repo forall -pc git log --reverse --no-merges --since=1.day.ago > $ROMname-changes-$(date +"%m-%d-%Y").txt
+        repo forall -pc git log --reverse --no-merges --since=1.day.ago > $ROM_name-changes-$(date +"%m-%d-%Y").txt
         echo " "
         echo "Done!"
         sleep 1
@@ -260,7 +254,7 @@ warmWelcomeTest
 changelogFolder
 
 # Set the ROM name for the changelog output
-setROMName
+setROM_name
 
 # Time to get to the good stuff
 gitchanges
