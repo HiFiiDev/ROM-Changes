@@ -7,6 +7,7 @@
 TodaysDate=$(date +"%m-%d-%Y")
 changesFile=changes/$date/$ROM_name-changes-$date.txt
 changesger=repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago > $changesFile
+ROM_name=cr
 
 
 while [ $# -gt 0 ]
@@ -95,19 +96,23 @@ changelogFolder ()
         sleep 1
         chmod 777 -R changes
         echo "Done!"
-        echo "Moving on..."
+        echo "Moving on"
         sleep 1
 
         # Now that all the boring setup stuff is done, let's let the user know.
         noMoreBoringStuff
 
     else echo " "
-        echo "Found the changes folder!"
+        echo -n "Found the changes folder!"
         sleep 2
-        echo " "
-        echo "Moving on..."
+        echo -n " Moving on"
+        for l in . . . ; do
+        echo -n $l
+        sleep .1
+    done
+    echo
+    sleep .25
         sleep 2
-        echo " "
         echo " "
 
     fi
@@ -119,7 +124,12 @@ setROM_name () {
     fi
 
     # show it to the user
-    echo "\nROM name: ${value}"
+    sleep 1
+    clear
+    tput cup 0 0
+    echo -e "\nROM name: ${value}"
+    sleep 1
+    tput cup 10 10
 
     if [ -z "$value" ]
     then
@@ -128,8 +138,6 @@ setROM_name () {
         sed -i "10 i\ROM_name=$ROM_name" changes.sh
         echo " "
         sleep 2
-    else
-        echo "$value"
     fi
 }
 
