@@ -7,7 +7,6 @@
 TodaysDate=$(date +"%m-%d-%Y")
 changesFile=changes/$date/$ROM_name-changes-$date.txt
 changesger=repo forall -pc git log --reverse --no-merges --since=$NumberOf.days.ago > $changesFile
-ROM_name=cr
 
 
 while [ $# -gt 0 ]
